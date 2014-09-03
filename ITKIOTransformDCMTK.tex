@@ -94,7 +94,7 @@ colorlinks,linkcolor={blue},citecolor={blue},urlcolor={blue},
 This document describes a module that extends the Insight Toolkit,
 ITK \url{www.itk.org}, which reads DICOM Spatial Registration Object files into
 \doxygen{Transform}'s. Currently, DICOM files are read by applying the DCMTK
-library as a backend. A \texttt{itk::DCMTKTransformIO} class can be registered
+library as a backend. A \code{itk::DCMTKTransformIO} class can be registered
 with the IO factory mechanism so \doxygen{TransformFileReaderTemplate} will recognize
 and read these files.
 
@@ -109,21 +109,24 @@ publications must facilitate reproducibility of the reported results.
 
 \tableofcontents
 
-Using filters from the Insight Toolkit, we develop an algorithm for detecting
-and tracking thje movement of solar spots. As it is widely known, celestial
-objects such as the sun are ethereal and perfect, and therefore can not harbor
-artifacts such as spots. However, observations performed with our open source
-telescope have revealed the presence of such spots. The spots seems to continuously change positions on the solar surface.
+DICOM, Digital Imaging and Communications in Medicine, is the standard for
+medical images and related information~\cite{DICOMStandard}. As image registration
+computational research has slowly been adopted into clinical practice,
+DICOM has been extended to support registration information. Registration
+is applied in medical practices such as radiotherapy~\cite{Pinter2012b}.
 
-Automatic detection and tracking of the solar spot movements are of fundamental
-importance for allowing the authors to dedicate more time to perfectioning
-optical instruments and less time to the supervised acquisition of reliable
-data.
+The Insight Segmentation and Registration Toolkit, ITK, is a resource for
+medical image analysis applied in both a research and clinical context. This
+article describes a module~\cite{ITKModules} for ITK that makes it possible to read affine
+transforms stored as DICOM files.
 
-The reader should be warned that direct observation of the sun without proper
-equipment may result in personal injury, loss of vision and burned brains.
+First, a brief background of how spatial transforms are stored in DICOM is
+presented. Next, an overview of the transforms are handled in the module code
+is described. A concrete example showing how the module is applied follows.
+Finally, and overview describing next steps is given.
 
-\section{Principles of Solar Spot Detection}
+
+\section{DICOM Spatial Transform Background}
 
 Solar spots can be classified as the darkest objects present on an image of the
 solar surface. Algorithms such as watersheds, statistical classification and
@@ -131,7 +134,7 @@ mathematical morphology are suitable for automatically detecting these features
 in images of the solar surface.
 
 
-\section{Why Image Processing Papers must include Source Code, Images and Parameters }
+\section{ITK Interface to DICOM Transforms}
 
 Modern Image Processing is most of the time performed with computers. An
 attempt to replicate the results of an algorithm described in a paper entails
@@ -154,7 +157,7 @@ For questions on the basis of the scientific method the reader is refered to
 
 
 
-\section{Pointing to other material}
+\section{Example}
 
 The format of this LaTeX file, allows authors to include code snippets, like
 the following
@@ -177,6 +180,8 @@ Like the following method of an ITK class.
 
 \code{SetNumberOfIterations()}
 
+\section{Future Work}
+
 
 
 % The preceding sections will have been written in a gentler,
@@ -184,27 +189,6 @@ Like the following method of an ITK class.
 % section, documenting all the functions/exceptions/constants.
 % Often, these will be placed in separate files and input like this:
 
-
-
-\appendix
-
-\section{This is an Appendix}
-
-To create an appendix in a Insight HOWTO document, use markup like
-this:
-
-\begin{verbatim}
-\appendix
-
-\section{This is an Appendix}
-
-To create an appendix in a Insight HOWTO document, ....
-
-
-\section{This is another}
-
-Just add another \section{}, but don't say \appendix again.
-\end{verbatim}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
