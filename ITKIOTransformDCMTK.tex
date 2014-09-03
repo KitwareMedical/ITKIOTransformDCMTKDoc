@@ -128,11 +128,17 @@ Finally, and overview describing next steps is given.
 
 \section{DICOM Spatial Transform Background}
 
-Solar spots can be classified as the darkest objects present on an image of the
-solar surface. Algorithms such as watersheds, statistical classification and
-mathematical morphology are suitable for automatically detecting these features
-in images of the solar surface.
+When spatial transforms in DICOM, there are primarily three definitions to be
+concerned with, a \textit{Frame of Reference}~\cite{DICOMFrameOfReference},
+\textit{Spatial Registration Information Object Definition
+\(IOD\)}~\cite{DICOMSRO}, and the \textit{Deformable Spatial Registration
+Information Object Definition \(IOD\)} \cite{DICOMDSRO}.
 
+A \textit{Frame of Reference} identifies
+
+The \textit{Spatial Registration IOD}
+
+The \textit{Deformable Spatial Registration IOD}
 
 \section{ITK Interface to DICOM Transforms}
 
@@ -182,6 +188,12 @@ Like the following method of an ITK class.
 
 \section{Future Work}
 
+While reading the Spatial Registration IOD is now possible, future work could
+entail adding write support. Support for Deformable Registration IOD's could
+also be added, which correspond to an \doxygen{CompositeTransform} of affine
+transforms and the \doxygen{DisplacementFieldTransform}.  While the low-level
+reading of the DICOM files is currently achieved with the DCMTK library, similar
+calls could be performed to create a GDCM library-based implementation.
 
 
 % The preceding sections will have been written in a gentler,
