@@ -111,7 +111,7 @@ publications must facilitate reproducibility of the reported results.
 
 DICOM, Digital Imaging and Communications in Medicine, is the standard for
 medical images and related information~\cite{DICOMStandard}. As image registration
-computational research has slowly been adopted into clinical practice,
+computational research has been adopted into clinical practice,
 DICOM has been extended to support registration information. Registration
 is applied in medical practices such as radiotherapy~\cite{Pinter2012b}.
 
@@ -128,39 +128,58 @@ follows.  Finally, an overview describing next steps is given.
 
 \section{DICOM Spatial Transform Background}
 
-Regarding spatial transforms in DICOM, there are primarily three definitions to be
-concerned with, a \textit{Frame of Reference}~\cite{DICOMFrameOfReference},
-the \textit{Spatial Registration Information Object Definition
-\(IOD\)}~\cite{DICOMSRO,DICOMSROSupp}, and the \textit{Deformable Spatial Registration
-Information Object Definition \(IOD\)} \cite{DICOMSRO,DICOMDSROSupp}.
+Regarding spatial transforms in DICOM, there are three definitions to
+primarily be concerned with, the \textit{Frame of
+Reference}~\cite{DICOMFrameOfReference}, the \textit{Spatial Registration
+Information Object Definition \(IOD\)}~\cite{DICOMSRO,DICOMSROSupp}, and the
+\textit{Deformable Spatial Registration Information Object Definition \(IOD\)}
+\cite{DICOMSRO,DICOMDSROSupp}.
 
-A \textit{Frame of Reference} identifies
+A \textit{Frame of Reference} identifies the coordinate system associated with
+an image. The Frame of Reference Unique Identification Number (UID), tag
+\code{(0020,0052)}, is associated with an image series. Frame of Reference
+UID's are also used to identify the coordinate systems that a spatial
+transform maps to and from.
 
-The \textit{Spatial Registration IOD}
+The \textit{Spatial Registration IOD} describes DICOM files that store affine
+spatial transforms between Frames of Reference. A single Spatial Registration
+Object (SRO) can contain multiple transforms. All spatial transforms in a
+SRO are with respect to a Reference Coordinate System, which is also
+identified with a Frame of Reference UID.
 
-The \textit{Deformable Spatial Registration IOD}
+The Reference Coordinate System could be the Frame of Reference UID for a
+reference image that the other images were registered against. In this case,
+one of the transforms stored in the SRO, which correponds to the transform for
+the reference image, will be an identity transform. However, the Reference
+Coordinate System could also be an independent coordinate system, such as when
+the images are registered against an atlas.
+
+The transform for each image series in a SRO can be a chain of rigid or affine
+transforms.
+
+The \textit{Deformable Spatial Registration IOD} is similar to the Spatial
+Registration IOD, but displacement field transforms are also possible in the
+chain of transforms.
 
 \section{ITK Interface to DICOM Transforms}
 
-Modern Image Processing is most of the time performed with computers. An
-attempt to replicate the results of an algorithm described in a paper entails
-to reimplement the algorithm into source code. This task is far from trivial
-and consumes months of work. The final result can not be guarranted to be
-equivalent to the actual code that was used for testing the algorithm when the
-paper was written, and therefore it cannot be considered a baseline for
-comparing the algoritm with other algorithms availble to the reader.
+ITK uses an object factory mechanisms to support reading multiple file
+formats.  For images, classes that read and write specific file formats
+inherit from the \doxygen{ImageIOBase}, and the \doxygen{ImageFileReader} uses
+the objects registered to the factory to attempt to read, then read a given
+file.  Similarly, the classes that inherit \doxygen{TransformIOBaseTemplate}
+to read specific transform file formats are registered in the factory, and
+\doxygen{TransformFileReaderTemplate} uses this factory to read a given
+transform file name.
 
-Papers to the Insight Journal are written in the spirit of facilitating and
-encouraging readers to perform replication of work. In this sense, the Insight
-Journal is compliant with essential concepts of the scientific method.
+We wrote an \code{itk::DCMTKTransformIO} class that inherits from
+\doxygen{TransformIOBaseTemplate}, and can read DICOM SRO files. Internally,
+this class uses the DCMTK library \cite{DCMTK} to read the file.
 
-Since the code is included with the paper, less time has to be spent in
-describing the code, and more time can be used for describing how to use the
-algorithm in particular types of images.
+Composite
+RIGID -> Euler
 
-For questions on the basis of the scientific method the reader is refered to
-\cite{Popper2002,Popper1971}.
-
+SetFrameOfReferenceUID.
 
 
 \section{Example}
