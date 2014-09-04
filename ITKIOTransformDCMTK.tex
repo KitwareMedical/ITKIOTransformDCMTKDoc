@@ -174,12 +174,33 @@ transform file name.
 
 We wrote an \code{itk::DCMTKTransformIO} class that inherits from
 \doxygen{TransformIOBaseTemplate}, and can read DICOM SRO files. Internally,
-this class uses the DCMTK library \cite{DCMTK} to read the file.
+this class uses the DCMTK library~\cite{DCMTK} to read the file.
 
-Composite
-RIGID -> Euler
+Since a sequence of transforms is possible \code{itk::DCMTKTransformIO}
+generates a \doxygen{CompositeTransform}. The ITK transforms that correspond
+to the various DICOM transform types are listed in
+Table~\ref{tab:TransformType}.
 
-SetFrameOfReferenceUID.
+\begin{table}
+\begin{center}
+  \begin{tabular}{|c|c|}
+    \hline
+    \textbf{DICOM Type} & \textbf{ITK Type} \\
+    \hline
+    RIGID\_SCALE & \doxygen{ScaleTransform} \\
+    \hline
+    RIGID & \doxygen{Euler3DTransform} \\
+    \hline
+    AFFINE & \doxygen{AffineTransform} \\
+    \hline
+  \end{tabular}
+  \label{tab:TransformType}
+  \caption[DICOM and ITK transform types.]{DICOM transform types and their
+    corresponding ITK transform type.}
+\end{center}
+\end{table}
+
+\code{SetFrameOfReferenceUID}
 
 
 \section{Example}
