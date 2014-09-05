@@ -9,6 +9,8 @@
 \documentclass{InsightArticle}
 
 \usepackage[dvips]{graphicx}
+\usepackage{minted}
+\usepackage{verbatim}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -154,8 +156,8 @@ the reference image, will be an identity transform. However, the Reference
 Coordinate System could also be an independent coordinate system, such as when
 the images are registered against an atlas.
 
-The transform for each image series in a SRO can be a chain of rigid or affine
-transforms.
+The transform for each image series in a SRO can consist of a chain of rigid
+or affine transforms.
 
 The \textit{Deformable Spatial Registration IOD} is similar to the Spatial
 Registration IOD, but displacement field transforms are also possible in the
@@ -176,7 +178,7 @@ We wrote an \code{itk::DCMTKTransformIO} class that inherits from
 \doxygen{TransformIOBaseTemplate}, and can read DICOM SRO files. Internally,
 this class uses the DCMTK library~\cite{DCMTK} to read the file.
 
-Since a sequence of transforms is possible \code{itk::DCMTKTransformIO}
+Since a sequence of transforms is possible, \code{itk::DCMTKTransformIO}
 generates a \doxygen{CompositeTransform}. The ITK transforms that correspond
 to the various DICOM transform types are listed in
 Table~\ref{tab:TransformType}.
@@ -201,27 +203,30 @@ Table~\ref{tab:TransformType}.
 \end{table}
 
 The default output of the DCMTKTransformIO is the concatenation of all
-transforms found in the SRO in the \doxygen{CompositeTransform}. To request
+transforms found in the SRO in the resulting \doxygen{CompositeTransform}. To request
 only the transforms corresponding to a specific Frame of Reference, call
 \code{SetFrameOfReferenceUID}.
 
-To find the spatial transform between the Frame of Reference for a fixed image
-and the Frame of Reference for a moving image, first obtain the transform for
-the fixed image,
+To find the spatial transform between the Frame of Reference for a Fixed Image
+and the Frame of Reference for a Moving Image, first obtain the transform for
+the Fixed Image,
 
 \begin{equation}
   T_f = T_{f1} \circ T_{f2} \circ ... T_{fN} = T_{f1}( T_{f2}( ... T_{fN} ))
 \end{equation}
 
-where $T_f$ is the fixed image composite transform to the Reference Coordinate
-System. If the Frame of Reference is specified for the moving image composite
+where $T_f$ is the Fixed Image composite transform to the Reference Coordinate
+System. The component transforms, $T_{f1}, T_{f2}, ...$ are a sequence of
+rigid, scale, or affine transforms.
+
+If the Frame of Reference is specified for the Moving Image composite
 transform to the Reference Coordinate System, $T_m$,
 
 \begin{equation}
   T_m = T_{m1} \circ T_{m2} \circ ... T_{mN} = T_{m1}( T_{m2}( ... T_{mN} ))
 \end{equation}
 
-then the transform from the fixed image Frame of Reference to the moving image
+then the transform from the Fixed Image Frame of Reference to the Moving Image
 Frame of Reference is
 
 \begin{equation}
@@ -234,6 +239,8 @@ where $T_m^{-1}$ is the inverse of the moving transform.
 
 The format of this LaTeX file, allows authors to include code snippets, like
 the following
+
+\inputminted[baselinestretch=1,fontsize=\footnotesize,linenos=false]{c++}{Module/test/ReadDicomTransformAndResampleExample.cxx}
 
 \small
 \begin{verbatim}
