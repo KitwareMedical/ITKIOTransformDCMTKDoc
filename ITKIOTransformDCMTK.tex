@@ -242,23 +242,6 @@ the following
 
 \inputminted[baselinestretch=1,fontsize=\footnotesize,linenos=false]{c++}{Module/test/ReadDicomTransformAndResampleExample.cxx}
 
-\small
-\begin{verbatim}
-typedef itk::Image< unsigned char, 3 > ImageType;
-
-ImageType::Pointer image = ImageType::New();
-\end{verbatim}
-\normalsize
-
-and to cite the online documentation of the Insitght Toolkit, for example, the
-link to the doxygen documentation of the ImageToImageFilter
-
-\doxygen{ImageToImageFilter}
-
-LaTeX macros are also available for typesetting code in familiar courier fonts.
-Like the following method of an ITK class.
-
-\code{SetNumberOfIterations()}
 
 \section{Future Work}
 
@@ -270,60 +253,8 @@ reading of the DICOM files is currently achieved with the DCMTK library, similar
 calls could be performed to create a GDCM library-based implementation.
 
 
-% The preceding sections will have been written in a gentler,
-% introductory style.  You may also wish to include a reference
-% section, documenting all the functions/exceptions/constants.
-% Often, these will be placed in separate files and input like this:
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%  Example on how to insert a figure
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{figure}
-\center
-\includegraphics[width=0.8\textwidth]{RegistrationComponentsDiagram.eps}
-\itkcaption[Registration Framework Components]{The basic components of the
-registration framework are two input images, a transform, a metric, an
-interpolator and an optimizer.}
-\label{fig:RegistrationComponents}
-\end{figure}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%  Example on how to insert an equation.
-%  Never forget to put an equation in your paper.
-%  They make them look professional and impress the reviewers.
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-To support shape-guidance, the generic level set equation
-(Eqn(~\ref{eqn:ShapeInfluenceTerm})) is extended to incorporate a shape guidance
-term:
-
-\begin{equation}
-\label{eqn:ShapeInfluenceTerm}
-\xi \left(\psi^{*}(\mathbf{x}) - \psi(\mathbf{x})\right)
-\end{equation}
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%  Insert the bibliography using BibTeX
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \bibliographystyle{plain}
 \bibliography{InsightJournal}
 
 
 \end{document}
-
