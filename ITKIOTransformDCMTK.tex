@@ -200,8 +200,35 @@ Table~\ref{tab:TransformType}.
 \end{center}
 \end{table}
 
-\code{SetFrameOfReferenceUID}
+The default output of the DCMTKTransformIO is the concatenation of all
+transforms found in the SRO in the \doxygen{CompositeTransform}. To request
+only the transforms corresponding to a specific Frame of Reference, call
+\code{SetFrameOfReferenceUID}.
 
+To find the spatial transform between the Frame of Reference for a fixed image
+and the Frame of Reference for a moving image, first obtain the transform for
+the fixed image,
+
+\begin{equation}
+  T_f = T_{f1} \circ T_{f2} \circ ... T_{fN} = T_{f1}( T_{f2}( ... T_{fN} ))
+\end{equation}
+
+where $T_f$ is the fixed image composite transform to the Reference Coordinate
+System. If the Frame of Reference is specified for the moving image composite
+transform to the Reference Coordinate System, $T_m$,
+
+\begin{equation}
+  T_m = T_{m1} \circ T_{m2} \circ ... T_{mN} = T_{m1}( T_{m2}( ... T_{mN} ))
+\end{equation}
+
+then the transform from the fixed image Frame of Reference to the moving image
+Frame of Reference is
+
+\begin{equation}
+  T_{fm} = T_m^{-1} \circ T_f = T_m^{-1}( T_f )
+\end{equation}
+
+where $T_m^{-1}$ is the inverse of the moving transform.
 
 \section{Example}
 
