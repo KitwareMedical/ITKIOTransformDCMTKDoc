@@ -38,7 +38,7 @@ colorlinks,linkcolor={blue},citecolor={blue},urlcolor={blue},
 % submission process. Please replace the number "1338" with
 % the actual handle number that you get assigned.
 %
-\newcommand{\IJhandlerIDnumber}{1338}
+\newcommand{\IJhandlerIDnumber}{3468}
 
 % Increment the release number whenever significant changes are made.
 % The author and/or editor can define 'significant' however they like.
@@ -96,7 +96,7 @@ colorlinks,linkcolor={blue},citecolor={blue},urlcolor={blue},
 This document describes a module that extends the Insight Toolkit,
 ITK \url{www.itk.org}, which reads DICOM Spatial Registration Object files into
 \doxygen{Transform}'s. Currently, DICOM files are read by applying the DCMTK
-library as a backend. A \code{itk::DCMTKTransformIO} class can be registered
+library as a backend. An \code{itk::DCMTKTransformIO} class can be registered
 with the IO factory mechanism so \doxygen{TransformFileReaderTemplate} will recognize
 and read these files.
 
@@ -168,7 +168,7 @@ chain of transforms.
 ITK uses an object factory mechanisms to support reading multiple file
 formats.  For images, classes that read and write specific file formats
 inherit from the \doxygen{ImageIOBase}, and the \doxygen{ImageFileReader} uses
-the objects registered to the factory to attempt to read, then read a given
+the objects registered to the factory to attempt to read, then read, a given
 file.  Similarly, the classes that inherit \doxygen{TransformIOBaseTemplate}
 to read specific transform file formats are registered in the factory, and
 \doxygen{TransformFileReaderTemplate} uses this factory to read a given
